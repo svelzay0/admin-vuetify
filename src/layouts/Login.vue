@@ -3,13 +3,13 @@
 </template>
 
 <script>
-  import auth from '../pages/auth/auth.vue'
+  import Auth from '../pages/auth/Auth.vue'
 
   export default {
     name: 'Login',
 
     components: {
-      auth
+      Auth
     },
   }
 </script>

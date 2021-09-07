@@ -36,9 +36,8 @@
             <v-card-title class="justify-center pb-11">
               <span class="auth__form_login">Вход</span>
             </v-card-title>
-            
             <v-card-text class="pb-0 mb-0">
-              <span class="auth__form_tip pa-1">Почта</span>
+              <span class="auth__form_tip">Почта</span>
               <v-text-field
                 class="pt-2"
                 v-model="email"
@@ -49,7 +48,7 @@
                 outlined
                 dense
               />
-              <span class="auth__form_tip pa-1">Пароль</span>
+              <span class="auth__form_tip">Пароль</span>
               <v-text-field
                 class="pt-2"
                 id="password"
@@ -121,12 +120,12 @@ data: () => ({
   }
   .auth__form_tip {
     color: #606266;
-    font-size: 10.5px;
+    font-size: 12.5px;
   }
   .auth__form_link_text {
     color: #3395ff;
     text-decoration: none;
-    font-size: 10.5px;
+    font-size: 12.5px;
     line-height: 12px;
   }
   .auth__form_link_text:hover {
