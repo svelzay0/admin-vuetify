@@ -1,27 +1,27 @@
 <template>
   <v-app>
-    <!-- <navbar /> -->
-    <v-main>
+    <navbar />
+    <v-main class="app">
       <v-container fluid>
         <div class="d-flex align-center py-3">
           {{ 123 }}
-          <div class="display-1">{{ title }}</div>
+          <!-- <div class="display-1">{{ title }}</div> -->
         </div>
-        <router-view :key="key" />
+        <!-- <router-view :key="key" /> -->
       </v-container>
     </v-main>
   </v-app>
 </template>
 
 <script>
-// import Navbar from '~/components/Navbar'
+import Navbar from '../components/Navbar'
 // import { mapGetters } from 'vuex'
 
 export default {
   name: 'AppLayout',
-  // components: {
-  //   Navbar
-  // },
+  components: {
+    Navbar
+  }
   // data: () => ({
   //   appName: window.config.appName,
   //   key: 1
@@ -36,3 +36,9 @@ export default {
   // }
 }
 </script>
+
+<style>
+  .app {
+    background-color: whitesmoke;
+  }
+</style>

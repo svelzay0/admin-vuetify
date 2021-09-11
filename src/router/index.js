@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Login from '../layouts/Login.vue'
+import Auth from '../layouts/Auth.vue'
 import AppLayout from '../layouts/AppLayout.vue'
 
 Vue.use(VueRouter)
@@ -8,8 +8,8 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'Login',
-    component: Login
+    name: 'Auth',
+    component: Auth
   },
   {
     path: '/admin/home',

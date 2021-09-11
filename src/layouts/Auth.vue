@@ -4,7 +4,6 @@
       id="auth-body"
       class="fill-height"
       fluid
-      style="background-color: whitesmoke;"
     >
       <v-row
         align="center"
@@ -108,6 +107,9 @@ data: () => ({
 </script>
 
 <style scoped>
+  .fill-height {
+    background-color: whitesmoke;
+  }
   .auth__logo_text {
     color: #3d5170;
     font-weight: 600;
