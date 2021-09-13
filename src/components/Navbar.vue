@@ -73,25 +73,28 @@
           </v-card-title>
         </v-col>
       </v-row>
-      <v-list>
+      <v-list-item-group class="pt-2" color="#3395ff">
         <v-list-item
           v-for="item in items"
           :key="item.title"
           :to="item.to"
         >
-          <v-icon
+          <v-list-item-icon>
+            <v-icon
             v-if="item.ico"
             left
-            x-small
-            class="item__content_icon ml-8"
+            small
+            class="item__content_icon ml-6"
           >
             {{ item.ico }}
           </v-icon>
-          <v-list-item-content class="item__content_text">
+          </v-list-item-icon>
+          
+          <v-list-item-content>
             {{ item.title }}
           </v-list-item-content>
         </v-list-item>
-      </v-list>
+      </v-list-item-group>
     </v-navigation-drawer>
     <v-footer
       fixed

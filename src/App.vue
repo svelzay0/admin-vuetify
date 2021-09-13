@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-main class="pa-0">
+    <v-main class="pa-0 ma-0">
       <router-view />
     </v-main>
   </v-app>
@@ -43,9 +43,3 @@
     },
   };
 </script>
-
-<style scoped>
-  * {
-    overflow: hidden !important;
-  }
-</style>

@@ -1,15 +1,14 @@
 @import "variables";
 
-.v-list .v-list-item--active {
-  border-bottom: 1px solid $main-border-gray !important;
-  color: $main-white !important;
+.v-list-item-group .v-list-item--active {
+  border-left: 5px solid $main-light-blue !important;
 }
 .item__content_icon {
   color: $main-gray !important;
 }
 .item__content_text {
   font-weight: 400;
-  color: $main-text-color;
+  color: $main-text-color !important;
 }
 .col__borders {
   border-right: 1px solid $main-border-gray !important;
@@ -30,9 +29,6 @@
 .admin__footer_links {
   height: 70px;
 }
-// .v-main {
-//   padding: 28px 0px 0px 136px !important;
-// }
 
 // desktop-min (1024px - 1023px)
 @media screen and (max-width: $desktop-min) {
@@ -40,9 +36,6 @@
     border-right: 0px solid $main-border-gray !important;
     border-left: 0px solid $main-border-gray !important;
   }
-  // .v-main {
-  //   padding: 28px 0px 0px 0px !important;
-  // }
 }
 
 // tablet (768px - 1023px)

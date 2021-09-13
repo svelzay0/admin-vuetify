@@ -67,6 +67,9 @@
   line-height: 16px;
   color: $main-text-color;
 }
+.main__title {
+  color: $main-text-color;
+}
 
 // desktop-min (1024px - 1023px)
 @media screen and (max-width: $desktop-min) {
