@@ -9,13 +9,16 @@
         align="center"
         justify="center"
       >
-        <v-col cols="auto" class="ma-0 pa-0">
+        <v-col
+          cols="auto"
+          class="ma-0 pa-0"
+        >
           <v-img
             contain
             class="mx-auto"
             max-height="120"
             max-width="300"
-            :src="require('@/assets/logo.svg')" 
+            :src="require('@/assets/logo.svg')"
             :alt="'Need-for-drive'"
           />
         </v-col>
@@ -31,15 +34,20 @@
           min-width="400"
           class="elevation-12"
         >
-          <v-form @submit.prevent="login" v-model="valid" ref="form" lazy-validation>
+          <v-form
+            v-model="valid"
+            ref="form"
+            lazy-validation
+            @submit.prevent="submitForm"
+          >
             <v-card-title class="justify-center pb-11">
               <span class="auth__form_login">Вход</span>
             </v-card-title>
             <v-card-text class="pb-0 mb-0">
               <span class="auth__form_tip">Почта</span>
               <v-text-field
+                v-model="form.email"
                 class="pt-2"
-                v-model="email"
                 name="email"
                 :rules="emailRules"
                 :type="'text'"
@@ -49,9 +57,9 @@
               />
               <span class="auth__form_tip">Пароль</span>
               <v-text-field
+                v-model="form.password"
                 class="pt-2"
                 id="password"
-                v-model="password"
                 :rules="passwordRules"
                 name="password"
                 type="password"
@@ -61,9 +69,18 @@
               />
             </v-card-text>
             <v-card-actions class="pa-4 pt-0 mt-0">
-              <span class="auth__form_link_text">Запросить доступ</span>
+              <span
+                class="auth__form_link_text"
+                @click="clearToken"
+              >
+                Запросить доступ
+              </span>
               <v-spacer />
-              <v-btn type="submit" color="primary" depressed class="text-transform-none" @click="validate">
+              <v-btn
+                type="submit"
+                color="primary"
+                depressed class="text-transform-none"
+              >
                 <span class="auth__form_btn_text pa-1">Войти</span>
               </v-btn>
             </v-card-actions>
@@ -75,75 +92,39 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 
 export default {
 data: () => ({
+    form: {
+      email: "",
+      password: "",
+    },
     valid: true,
-    password: '',
     passwordRules: [
       v => !!v || 'Пожалуйста, введите пароль',
       v => v.length >= 8 || 'Необходимо минимум 8 символов'
     ],
-    email: '',
     emailRules: [
-      v => !!v || 'Пожалуйста, введите email',
-      v => /.+@.+\..+/.test(v) || 'Введите корректный email',
+      v => !!v || 'Пожалуйста, введите email'
     ],
   }),
   methods: {
-    validate () {
-      this.$refs.form.validate()
-    },
-    login () {
-      if (this.valid) {
-        console.log('email: admin@m.ru / password: password')
-        if (this.password === 'password' && this.email === 'admin@m.ru') {
-          this.$router.push({ name: 'Home' })
+    ...mapActions("user", ["loginUser"]),
+    submitForm() {
+      const valid = this.$refs.form.validate();
+      if (valid) {
+        const res = this.loginUser(this.form);
+        console.log(res)
+        if (res) {
+          this.$router.push("/admin");
         }
       }
-    }
+    },
+    clearToken() {
+      localStorage.removeItem("token");
+      localStorage.removeItem("refresh_token");
+    },
   }
 }
 </script>
-
-<style scoped>
-  .fill-height {
-    background-color: whitesmoke;
-  }
-  .auth__logo_text {
-    color: #3d5170;
-    font-weight: 600;
-  }
-  .auth__form_login {
-    font-weight: 400;
-    color: #3d5170;
-    font-size: 17.5px;
-    line-height: 20px;
-  }
-  .auth__form_tip {
-    color: #606266;
-    font-size: 12.5px;
-  }
-  .auth__form_link_text {
-    color: #3395ff;
-    text-decoration: none;
-    font-size: 12.5px;
-    line-height: 12px;
-  }
-  .auth__form_link_text:hover {
-    cursor: pointer;
-    text-decoration: underline;
-  }
-  .auth__form_btn_text {
-    font-weight: 400;
-    color: white;
-    font-size: 12.5px;
-  }
-  .v-btn {
-    width: 100px;
-    text-transform:none;
-  }
-  .v-messages__message {
-    padding: 0;
-  }
-</style>

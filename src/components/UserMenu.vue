@@ -9,19 +9,13 @@
     origin="top right"
   >
     <template #activator="{ on }">
-      <v-avatar>
-        <img
-          :src="require('@/assets/user-avatar.jpg')"
-          alt="User"
-        >
-      </v-avatar>
-      <v-btn 
-        icon 
-        large 
+      <v-btn
+        icon
+        large
         v-on="on"
       >
-        <v-icon 
-          x-large 
+        <v-icon
+          x-large
           dark
         >
           mdi-menu-down
@@ -34,12 +28,12 @@
         align="center"
         justify="center"
       >
-        <v-col 
-          cols="auto" 
+        <v-col
+          cols="auto"
           class="mt-3"
         >
-          <v-btn 
-            color="primary" 
+          <v-btn
+            color="primary"
             @click.prevent="logout"
           >
             <v-icon>mdi-logout</v-icon>
@@ -52,24 +46,18 @@
 </template>
 
 <script>
-// import { mapGetters } from 'vuex'
+import { mapActions } from "vuex";
 
 export default {
   data: () => ({
     menu: false
   }),
 
-  computed: {
-    // ...mapGetters({
-    //   user: 'auth/user',
-    // })
-  },
-
   methods: {
-    async logout () {
-      // await this.$store.dispatch('auth/logout')
-      // this.$router.push({ name: 'login' })
-    }
+    ...mapActions("user", ["logoutUser"]),
+    logout() {
+      this.logoutUser();
+    },
   }
 }
 </script>
