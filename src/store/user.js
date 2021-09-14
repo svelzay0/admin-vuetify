@@ -1,6 +1,7 @@
 import axios from "axios";
 import router from "@/router";
 import handleError from "../shared/error";
+import headers from "../shared/headers";
 
 export default {
   namespaced: true,
@@ -15,8 +16,8 @@ export default {
       state.user.refreshToken = payload["refresh_token"];
     },
     createBase64Token(state) {
-      let r = Math.random().toString(36).substring(2);
-      const token = r + ":" + process.env.VUE_APP_API_KEY;
+      let random = Math.random().toString(36).substring(2);
+      const token = random + ":" + process.env.VUE_APP_API_KEY;
       localStorage.setItem("token64", btoa(token));
       state.base64Token = btoa(token);
     },
@@ -32,22 +33,15 @@ export default {
         const { data } = await axios({
           url: process.env.VUE_APP_API_AUTH + "/auth/login",
           method: "post",
-          headers: {
-            "X-Api-Factory-Application-Id": `${process.env["VUE_APP_API_FACTORY_ID"]}`,
-            "Content-Type": "application/json",
-            "Authorization": "Basic " + localStorage.getItem("token64"),
-          },
+          headers: headers(process.env, localStorage.getItem("token64")),
           data: {
             username: email,
             password: password,
           },
         });
         commit("setUser", data);
-        localStorage.setItem("token", data["access_token"]);
-        localStorage.setItem("refresh_token", data["refresh_token"]);
+        setItems(localStorage, data);
         localStorage.setItem("user", data["user_id"]);
-        const now = Date.now();
-        localStorage.setItem("tokenCreated", now);
         this.commit("shared/setLoading", false);
         return true;
       } catch (e) {
@@ -62,11 +56,7 @@ export default {
         const { data } = await axios({
           url: process.env.VUE_APP_API_AUTH + "/auth/refresh",
           method: "post",
-          headers: {
-            "X-Api-Factory-Application-Id": `${process.env["VUE_APP_API_FACTORY_ID"]}`,
-            "Content-Type": "application/json",
-            "Authorization": "Basic " + localStorage.getItem("token64"),
-          },
+          headers: headers(process.env, localStorage.getItem("token64")),
           data: {
             refresh_token: localStorage.getItem("refresh_token"),
             client_id: localStorage.getItem("user"),
@@ -74,10 +64,7 @@ export default {
           },
         });
         commit("setUser", data);
-        localStorage.setItem("token", data["access_token"]);
-        localStorage.setItem("refresh_token", data["refresh_token"]);
-        const now = Date.now();
-        localStorage.setItem("tokenCreated", now);
+        setItems(localStorage, data);
         this.commit("shared/clearError");
       } catch (e) {
         this.commit("shared/setError", e.message);
@@ -96,17 +83,11 @@ export default {
             "Authorization": "Bearer " + localStorage.getItem("token"),
           },
         });
-        localStorage.removeItem("token");
-        localStorage.removeItem("refresh_token");
-        localStorage.removeItem("tokenCreated");
-        localStorage.removeItem("user");
+        removeItems(localStorage);
         commit("clearUser");
         await router.push({ name: "Auth" });
       } catch (e) {
-        localStorage.removeItem("token");
-        localStorage.removeItem("refresh_token");
-        localStorage.removeItem("tokenCreated");
-        localStorage.removeItem("user");
+        removeItems(localStorage);
         this.commit("shared/setError", e.message);
         handleError(e);
       }
@@ -118,3 +99,17 @@ export default {
     },
   },
 };
+
+const setItems = (localStorage, data) => {
+  const now = Date.now();
+  localStorage.setItem("token", data["access_token"]);
+  localStorage.setItem("refresh_token", data["refresh_token"]);
+  localStorage.setItem("tokenCreated", now);
+}
+
+const removeItems = (localStorage) => {
+  localStorage.removeItem("token");
+  localStorage.removeItem("refresh_token");
+  localStorage.removeItem("tokenCreated");
+  localStorage.removeItem("user");
+}

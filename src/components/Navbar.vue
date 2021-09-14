@@ -73,28 +73,30 @@
           </v-card-title>
         </v-col>
       </v-row>
-      <v-list-item-group class="pt-2" color="#3395ff">
-        <v-list-item
-          v-for="item in items"
-          :key="item.title"
-          :to="item.to"
+      <v-list>
+        <v-list-item-group
+          class="pt-2"
+          color="#3395ff"
         >
-          <v-list-item-icon>
-            <v-icon
-            v-if="item.ico"
-            left
-            small
-            class="item__content_icon ml-6"
+          <v-list-item
+            v-for="item in items"
+            :key="item.title"
+            :to="item.to"
+            class="pr-0 mr-0"
           >
-            {{ item.ico }}
-          </v-icon>
-          </v-list-item-icon>
-          
-          <v-list-item-content>
-            {{ item.title }}
-          </v-list-item-content>
-        </v-list-item>
-      </v-list-item-group>
+            <v-list-item-icon>
+              <v-icon
+                v-text="item.ico"
+                left
+                class="pa-0 ma-0"
+              />
+            </v-list-item-icon>
+            <v-list-item-content>
+              {{ item.title }}
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
     </v-navigation-drawer>
     <v-footer
       fixed
@@ -143,32 +145,32 @@ export default {
         {
           title: 'Карточка автомобиля',
           to: { name: 'CarCard' },
-          ico: 'mdi-account'
+          ico: 'mdi-pencil'
         },
         {
           title: 'Список авто',
           to: { name: 'CarList' },
-          ico: 'mdi-notebook-edit'
+          ico: 'mdi-clipboard-list'
         },
         {
           title: 'Заказы',
           to: { name: 'Orders' },
-          ico: 'mdi-notebook-edit'
+          ico: 'mdi-calendar-plus'
         },
         {
           title: 'Home',
           to: { name: 'Home' },
-          ico: 'mdi-notebook-edit'
+          ico: 'mdi-home-variant'
         },
         {
           title: 'Menu 5',
           to: { name: 'Menu5' },
-          ico: 'mdi-notebook-edit'
+          ico: 'mdi-view-list'
         },
         {
           title: 'Menu 6',
           to: { name: 'Menu6' },
-          ico: 'mdi-notebook-edit'
+          ico: 'mdi-account'
         },
         {
           title: 'Menu 7',

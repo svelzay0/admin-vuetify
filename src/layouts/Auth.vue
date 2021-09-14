@@ -22,12 +22,18 @@
             :alt="'Need-for-drive'"
           />
         </v-col>
-        <v-col cols="auto" class="ma-0 pa-0">
+        <v-col
+          cols="auto"
+          class="ma-0 pa-0"
+        >
           <v-card-title class="headline">
             <span class="auth__logo_text">Need for drive</span>
           </v-card-title>
         </v-col>
-        <v-col cols="12" class="mb-1 pb-1">
+        <v-col
+          cols="12"
+          class="mb-1 pb-1"
+        >
           <v-spacer />
         </v-col>
         <v-card
@@ -113,12 +119,15 @@ data: () => ({
     ...mapActions("user", ["loginUser"]),
     submitForm() {
       const valid = this.$refs.form.validate();
-      if (valid) {
-        const res = this.loginUser(this.form);
-        console.log(res)
-        if (res) {
-          this.$router.push("/admin");
-        }
+      this.login(valid);
+    },
+    async login (valid) {
+      if (!valid) {
+        return;
+      }
+      const res = await this.loginUser(this.form);
+      if (res) {
+        this.$router.push("/admin");
       }
     },
     clearToken() {

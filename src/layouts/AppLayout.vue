@@ -5,7 +5,7 @@
       <v-container fluid>
         <div class="d-flex align-center py-3">
           <div class="display-1 pl-6 pb-2">
-            <span class="main__title"> 
+            <span class="main__title">
             {{ title }}
             </span>
           </div>

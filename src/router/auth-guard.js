@@ -5,7 +5,7 @@ export default function (to, from, next) {
   if (localStorage.getItem("token")) {
     next();
   } else {
-    store.mutations.setError(store.state, "Авторизируйтесь в систему");
+    store.mutations.setError(store.state, "Пройдите авторизацию");
     next("/");
   }
 }

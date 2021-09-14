@@ -1,4 +1,5 @@
 import axios from "axios";
+import headers from "headers";
 
 const base64Token = localStorage.getItem("token64");
 
@@ -11,11 +12,7 @@ axiosApi.interceptors.request.use(async config => {
       "Content-Type": "application/json",
     };
   } else {
-    config.headers = {
-      "X-Api-Factory-Application-Id": `${process.env["VUE_APP_API_FACTORY_ID"]}`,
-      "Content-Type": "application/json",
-      "Authorization": "Basic " + base64Token,
-    };
+    config.headers = headers(process.env, base64Token);
   }
 
   config.baseURL = process.env.VUE_APP_API_PROD;
